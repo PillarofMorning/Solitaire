@@ -1,0 +1,348 @@
+import random
+class Solitaire:
+    def __init__(self, name):
+        self.cards = []
+        self.name = name
+
+    def add_color(self, color):
+        self.color = color
+
+    def add_value(self, value):
+        self.value = value
+
+    def add_suit(self, suit):
+        self.suit = suit
+
+    def __repr__(self):
+        return self.name
+
+
+#Deck Creation
+number= ['two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
+suit = ['hearts', 'spades', 'diamonds', 'clubs']
+royalty = ['jack', 'queen', 'king', 'ace']
+cards = []
+for x in suit:
+    for y in number:
+        cards.append("{} of {}". format(y, x))
+    for z in royalty:
+        cards.append("{} of {}".format(z, x))
+
+cards2 = []
+#assigning deck to Class
+    #this part is the name
+for i in cards:
+    namev = i
+    locals()[''+str(namev).replace(' ', '')+''] =Solitaire(name = namev)
+
+    cards2.append(locals()[''+str(namev).replace(' ', '')+''])
+    if 'hearts' in namev or 'diamonds' in namev:
+        locals()[''+str(namev).replace(' ', '')+''].add_color('red')
+    if 'spades' in namev or 'clubs' in namev:
+        locals()['' + str(namev).replace(' ', '') + ''].add_color('black')
+    if 'hearts' in namev:
+        locals()['' + str(namev).replace(' ', '') + ''].add_suit('hearts')
+    if 'spades' in namev:
+        locals()['' + str(namev).replace(' ', '') + ''].add_suit('spades')
+    if 'clubs' in namev:
+        locals()['' + str(namev).replace(' ', '') + ''].add_suit('clubs')
+    if 'diamonds' in namev:
+        locals()['' + str(namev).replace(' ', '') + ''].add_suit('diamonds')
+
+    if 'one' in namev:
+        locals()['' + str(namev).replace(' ', '') + ''].add_value(1)
+    if 'two' in namev:
+        locals()['' + str(namev).replace(' ', '') + ''].add_value(2)
+    if 'three' in namev:
+        locals()['' + str(namev).replace(' ', '') + ''].add_value(3)
+    if 'four' in namev:
+        locals()['' + str(namev).replace(' ', '') + ''].add_value(4)
+    if 'five' in namev:
+        locals()['' + str(namev).replace(' ', '') + ''].add_value(5)
+    if 'six' in namev:
+        locals()['' + str(namev).replace(' ', '') + ''].add_value(6)
+    if 'seven' in namev:
+        locals()['' + str(namev).replace(' ', '') + ''].add_value(7)
+    if 'eight' in namev:
+        locals()['' + str(namev).replace(' ', '') + ''].add_value(8)
+    if 'nine' in namev:
+        locals()['' + str(namev).replace(' ', '') + ''].add_value(9)
+    if 'jack' in namev:
+        locals()['' + str(namev).replace(' ', '') + ''].add_value(10)
+    if 'queen' in namev:
+        locals()['' + str(namev).replace(' ', '') + ''].add_value(11)
+    if 'king' in namev:
+        locals()['' + str(namev).replace(' ', '') + ''].add_value(12)
+    if 'ace' in namev:
+        locals()['' + str(namev).replace(' ', '') + ''].add_value(1)
+
+
+#shuffle the deck
+random.shuffle(cards)
+random.shuffle(cards2)
+
+# setting up the board
+ace1 = []
+ace2 = []
+ace3 = []
+ace4 = []
+aisle1b = []
+aisle2b = [cards2.pop(-1) for x in range(1)]
+aisle3b = [cards2.pop(-1) for x in range(2)]
+aisle4b = [cards2.pop(-1) for x in range(3)]
+aisle5b = [cards2.pop(-1) for x in range(4)]
+aisle6b = [cards2.pop(-1) for x in range(5)]
+aisle7b = [cards2.pop(-1) for x in range(6)]
+aisle1 = []
+aisle2 = [cards2.pop(-1) for x in range(1)]
+aisle3 = [cards2.pop(-1) for x in range(1)]
+aisle4 = [cards2.pop(-1) for x in range(1)]
+aisle5 = [cards2.pop(-1) for x in range(1)]
+aisle6 = [cards2.pop(-1) for x in range(1)]
+aisle7 = [cards2.pop(-1) for x in range(1)]
+ace1 = []
+ace2 = []
+ace3 = []
+ace4 = []
+
+
+
+deck = []
+draw = [cards2.pop(-1)]
+win = False
+print('welcome to solitaire')
+
+
+def rolling_cards(draw, win):
+    global aisle1, aisle2, aisle3, aisle4, aisle5, aisle6, aisle7, ace1, ace2, ace3, ace4
+    while win == False:
+        print('here are the lanes')
+        if aisle1 and aisle2 and aisle3 and aisle4 and aisle5 and aisle6 and aisle7:
+            print('1', aisle1[-1], '2', aisle2[-1], '3', aisle3[-1], '4', aisle4[-1], '5', aisle5[-1], '6', aisle6[-1], '7', aisle7[-1])
+        else:
+            print('1', aisle1, '2', aisle2, '3', aisle3, '4', aisle4, '5', aisle5, '6', aisle6,
+                  '7', aisle7)
+        print('aces')
+        print('8', ace1, '9', ace2, '10', ace3, '11', ace4)
+        print('draw card')
+        print('12', draw)
+        choice3 = ''
+        choice4 = ''
+        choice  = ''
+        choice2 = ''
+
+        while choice not in range(14):
+            choice = int(input('please choose a card to move, 11 for a new draw, 13 to expand lanes'))
+
+        if choice == 13:
+            print('1', aisle1, '2', aisle2, '3', aisle3, '4', aisle4, '5', aisle5, '6', aisle6,
+                  '7', aisle7)
+            print('8', ace1, '9', ace2, '10', ace3, '11', ace4)
+            print('draw card')
+            print('12', draw)
+            choice = int(input('please choose a card to move, 11 for a new draw, 13 to expand lanes'))
+            while choice not in range(14):
+                choice = int(input('please choose a card to move, 11 for a new draw, 13 to expand lanes'))
+
+        if choice != 11 and choice !=13:
+            choice2 = int(input('please select a lane to move it to 1-7'))
+
+
+            if choice == 12:
+                print('true')
+                choice  = [draw.pop()]
+                choice3 = cards2
+            else:
+                while choice4 not in range(0, 8):
+                    choice4 = int(input('please select top to bottom which card from that aisle starting from 0'))
+
+                if choice == 1:
+                    if aisle1:
+                        choice  = aisle1[choice4:]
+                        aisle1  = aisle1[:choice4]
+                        choice3 = 'aisle1'
+                    else:
+                        print('invalid choice')
+
+                if choice == 2:
+                    if aisle2:
+                        choice = aisle2[choice4:]
+                        aisle2 = aisle2[:choice4]
+                        choice3 = 'aisle2'
+                    else:
+                        print('invalid choice')
+
+                if choice == 3:
+                    if aisle3:
+                        choice = aisle3[choice4:]
+                        aisle3 = aisle3[:choice4]
+                        choice3 = 'aisle3'
+                    else:
+                        print('invalid choice')
+
+                if choice == 4:
+                    if aisle4:
+                        choice = aisle4[choice4:]
+                        aisle4 = aisle4[:choice4]
+                        choice3 = 'aisle4'
+                    else:
+                        print('invalid choice')
+
+                if choice == 5:
+                    if aisle5:
+                        choice = aisle5[choice4:]
+                        aisle5 = aisle5[:choice4]
+                        choice3 = 'aisle5'
+                    else:
+                        print('invalid choice')
+                if choice == 6:
+                    if aisle6:
+                        choice = aisle6[choice4:]
+                        aisle6 = aisle6[:choice4]
+                        choice3 = 'aisle6'
+                    else:
+                        print('invalid choice')
+                if choice == 7:
+                    if aisle7:
+                        choice = aisle7[choice4:]
+                        aisle7 = aisle7[:choice4]
+                        choice3 = 'aisle7'
+                    else:
+                        print('invalid choice')
+        else:
+            choice2 = 11
+        draw = attachment(choice, choice2, choice3, draw, win)
+
+
+def attachment(choice, choice2, choice3, draw, win):
+    choice2 = choice2
+    global aisle1, aisle2, aisle3, aisle4, aisle5, aisle6, aisle7, ace1, ace2, ace3, ace4
+    if choice == 11:
+        cards2.insert(0, draw.pop())
+        # random.shuffle(cards2)
+
+    else:
+
+        if choice2 == 1:
+            if aisle1:
+                if aisle1[-1].value - choice[0].value ==1 and choice[0].color != aisle1[-1].color:
+
+                    aisle1 = aisle1+choice
+                else:
+                    globals()['' + str(choice3) + ''] = globals()['' + str(choice3) + ''] + choice
+            else:
+                aisle1 = aisle1+choice
+
+        if choice2 == 2:
+            if aisle2:
+                if aisle2[-1].value - choice[0].value ==1 and choice[0].color != aisle2[-1].color:
+
+                    aisle2 = aisle2+choice
+                else:
+                    globals()['' + str(choice3) + ''] = globals()['' + str(choice3) + ''] + choice
+            else:
+                aisle2 = aisle2+choice
+        if choice2 == 3:
+            if aisle3:
+                if aisle3[-1].value - choice[0].value ==1 and choice[0].color != aisle3[-1].color:
+                    print('true')
+                    aisle3 = aisle3+choice
+                else:
+                    globals()['' + str(choice3) + ''] = globals()['' + str(choice3) + ''] + choice
+            else:
+                aisle3 = aisle3+choice
+        if choice2 == 4:
+            if aisle4:
+                if aisle4[-1].value - choice[0].value ==1 and choice[0].color != aisle4[-1].color:
+                    aisle4 = aisle4+choice
+                else:
+                    globals()['' + str(choice3) + ''] = globals()['' + str(choice3) + ''] + choice
+            else:
+                aisle4 = aisle4+choice
+        if choice2 == 5:
+            if aisle5:
+                if aisle5[-1].value - choice[0].value ==1 and choice[0].color != aisle5[-1].color:
+                    aisle5 = aisle5+choice
+                else:
+                    globals()['' + str(choice3) + ''] = globals()['' + str(choice3) + ''] + choice
+            else:
+                aisle5 = aisle5+choice
+        if choice2 == 6:
+            if aisle6:
+                if aisle6[-1].value - choice[0].value ==1 and choice[0].color != aisle6[-1].color:
+                    aisle6 = aisle6+choice
+                else:
+                    globals()['' + str(choice3) + ''] = globals()['' + str(choice3) + ''] + choice
+            else:
+                aisle6 = aisle6+choice
+        if choice2 == 7:
+            if aisle7:
+                if aisle7[-1].value - choice[0].value ==1 and choice[0].color != aisle7[-1].color:
+                    aisle7 = aisle7+choice
+                else:
+                    globals()['' + str(choice3) + ''] = globals()['' + str(choice3) + ''] + choice
+            else:
+                aisle7 = aisle7+choice
+
+        if choice2 == 8:
+
+            if not ace1 and choice[0].value == 1:
+                ace1 = ace1+choice
+            elif ace1[-1].value - choice[0].value ==-1 and choice[0].suit == ace1[-1].suit:
+                ace1 = ace1+choice
+            else:
+                print(ace1[-1].value - choice[0].value == -1, choice[0].suit == ace1[-1].suit)
+                globals()['' + str(choice3) + ''] = globals()['' + str(choice3) + ''] + choice
+
+        if choice2 == 9:
+
+            if not ace2 and choice[0].value == 1:
+                ace2 = ace2+choice
+            elif ace2[-1].value - choice[0].value == -1 and choice[0].suit == ace2[-1].suit:
+                ace2 = ace2+choice
+            else:
+                print(ace2[-1].value - choice[0].value == -1, choice[0].suit == ace2[-1].suit)
+                globals()['' + str(choice3) + ''] = globals()['' + str(choice3) + ''] + choice
+
+        if choice2 == 10:
+
+            if not ace3 and choice[0].value == 1:
+                ace3 = ace3+choice
+            elif ace3[-1].value - choice[0].value == -1 and choice[0].suit == ace3[-1].suit:
+                ace3 = ace3+choice
+            else:
+                print(ace3[-1].value - choice[0].value == -1, choice[0].suit == ace3[-1].suit)
+                globals()['' + str(choice3) + ''] = globals()['' + str(choice3) + ''] + choice
+
+        if choice2 == 11:
+
+            if not ace4 and choice[0].value == 1:
+                ace4 = ace4+choice
+            elif ace4[-1].value - choice[0].value == -1 and choice[0].suit == ace4[-1].suit:
+                ace4 = ace4+choice
+            else:
+                print(ace4[-1].value - choice[0].value == -1, choice[0].suit == ace4[-1].suit)
+                globals()['' + str(choice3) + ''] = globals()['' + str(choice3) + ''] + choice
+
+
+    if not aisle2 and aisle2b:
+        aisle2.append(aisle2b.pop())
+    if not aisle3 and aisle3b:
+        aisle3.append(aisle3b.pop())
+    if not aisle4 and aisle4b:
+        aisle4.append(aisle4b.pop())
+    if not aisle5 and aisle5b:
+        aisle5.append(aisle5b.pop())
+    if not aisle6 and aisle6b:
+        aisle6.append(aisle6b.pop())
+    if not aisle7 and aisle7b:
+        aisle7.append(aisle7b.pop())
+
+    if not draw:
+        draw = [cards2.pop(-1)]
+    return draw
+
+    if not aisle1 and not aisle2 and not aisle3 and not aisle4 and not aisle5 and not aisle6 and not aisle7 and not draw:
+        win = True
+
+rolling_cards(draw, win)
